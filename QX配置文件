@@ -1,0 +1,25 @@
+[General]
+dns-server=119.29.29.29,8.8.8.8,1.1.1.1
+skip-proxy=192.168.0.0/16,10.0.0.0/8
+geo-location-update-url=https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+
+[Policy]
+RULE-SET,Domestic,DIRECT
+RULE-SET,Proxy,PROXY
+RULE-SET,Advertising,REJECT
+FINAL,PROXY
+
+[Filter]
+# 国内网站直连
+RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/china.list,Domestic
+# 国外网站代理
+RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.list,Proxy
+# 广告拦截
+RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.list,Advertising
+
+[Rewrite]
+# 拦截广告示例
+^https?:\/\/(ads|adservice)\.example\.com url reject
+
+[mitm]
+hostname=*.example.com,*.google.com,*.facebook.com
