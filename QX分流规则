@@ -1,0 +1,43 @@
+[General]
+dns-server = 223.5.5.5, 8.8.8.8, 1.1.1.1  # DNS 设置
+skip-proxy = 192.168.0.0/16, 10.0.0.0/8  # 局域网不走代理
+
+[Policy]
+# 代理策略组
+Proxy = select,🇭🇰 香港节点,🇯🇵 日本节点,DIRECT
+
+[Rule]
+# 🎯 特定网站走代理
+DOMAIN-SUFFIX,google.com,Proxy
+DOMAIN-SUFFIX,youtube.com,Proxy
+DOMAIN-SUFFIX,facebook.com,Proxy
+DOMAIN-SUFFIX,twitter.com,Proxy
+DOMAIN-SUFFIX,instagram.com,Proxy
+DOMAIN,www.netflix.com,Proxy
+
+# 🚀 国内网站直连
+DOMAIN-SUFFIX,baidu.com,DIRECT
+DOMAIN-SUFFIX,qq.com,DIRECT
+DOMAIN-SUFFIX,wechat.com,DIRECT
+DOMAIN-SUFFIX,bilibili.com,DIRECT
+DOMAIN-SUFFIX,alibaba.com,DIRECT
+DOMAIN,www.taobao.com,DIRECT
+
+# 🚫 广告屏蔽
+DOMAIN-SUFFIX,ads.com,REJECT
+DOMAIN-SUFFIX,tracking.com,REJECT
+DOMAIN-SUFFIX,doubleclick.net,REJECT
+DOMAIN-SUFFIX,ads.yahoo.com,REJECT
+DOMAIN-SUFFIX,googleadservices.com,REJECT
+
+# 🚀 其他流量走代理
+FINAL,Proxy
+
+[Filter]
+# 过滤爬虫
+USER-AGENT,*bot*,REJECT
+USER-AGENT,*spider*,REJECT
+USER-AGENT,*crawler*,REJECT
+
+[MITM]
+hostname = *.google.com, *.youtube.com
